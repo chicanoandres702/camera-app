@@ -1,0 +1,29 @@
+# A human-readable name for the workflow, which will appear in the "Actions" tab on GitHub.
+name: Run Python Tests
+
+# This section defines what triggers the workflow. 
+# In this case, it runs on every 'push' to the repository.
+on: [push]
+
+# This section defines the jobs to be executed.
+jobs:
+  # We are defining a single job named 'build'.
+  build:
+    # This specifies that the job will run on the latest version of Ubuntu Linux.
+    runs-on: ubuntu-latest
+
+    # These are the individual steps the job will perform in sequence.
+    steps:
+    # Step 1: Check out the repository's code. This is a mandatory first step.
+    - uses: actions/checkout@v3
+
+    # Step 2: Set up a Python environment on the virtual machine.
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    # Step 3: Try to run the buggy script. This is the step that will fail.
+    - name: Run buggy script
+      run: |
+        python buggy_script.py
